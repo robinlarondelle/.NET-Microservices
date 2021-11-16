@@ -6,11 +6,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Services
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen();  
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseInMemoryDatabase("InMem");
 });
+builder.Services.AddScoped<IPlatformRepository, PlatformRepository>();
 
 // Configuration
 var app = builder.Build();

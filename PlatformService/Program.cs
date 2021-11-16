@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PlatformService.Data;
+using PlatformService.Datal;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,5 +26,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+
+DemoDb.PrepPopulation(app);
 
 app.Run();

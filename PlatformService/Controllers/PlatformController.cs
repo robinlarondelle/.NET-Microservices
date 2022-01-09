@@ -20,15 +20,15 @@ public class PlatformController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<PlatformReadDTO>> GetPlatforms()
+    public ActionResult<IEnumerable<PlatformReadDto>> GetPlatforms()
     {
         IEnumerable<Platform> platforms = _repo.GetAllPlatforms();
 
-        return Ok(_mapper.Map<IEnumerable<PlatformReadDTO>>(platforms));
+        return Ok(_mapper.Map<IEnumerable<PlatformReadDto>>(platforms));
     }
 
-    [HttpGet("{id}", Name = "GetPlatformById")]
-    public ActionResult<PlatformReadDTO> GetPlatformById(int id)
+    [HttpGet("{id:int}", Name = "GetPlatformById")]
+    public ActionResult<PlatformReadDto> GetPlatformById(int id)
     {
         Platform? platform = _repo.GetPlatformById(id);
 
@@ -37,18 +37,18 @@ public class PlatformController : ControllerBase
             return NotFound();
         }
 
-        return Ok(_mapper.Map<PlatformReadDTO>(platform));
+        return Ok(_mapper.Map<PlatformReadDto>(platform));
     }
 
     [HttpPost]
-    public ActionResult<PlatformReadDTO> CreatePlatform(PlatformWriteDTO platformToCreate)
+    public ActionResult<PlatformReadDto> CreatePlatform(PlatformWriteDto platformToCreate)
     {
-        Platform platform = _mapper.Map<Platform>(platformToCreate);
+        var platform = _mapper.Map<Platform>(platformToCreate);
 
         _repo.CreatePlatform(platform);
         _repo.SaveChanges();
 
-        PlatformReadDTO platformReadDTO = _mapper.Map<PlatformReadDTO>(platform);
-        return CreatedAtRoute(nameof(GetPlatformById), new { platformReadDTO.Id }, platformReadDTO);
+        var platformReadDto = _mapper.Map<PlatformReadDto>(platform);
+        return CreatedAtRoute(nameof(GetPlatformById), new { platformReadDto.Id }, platformReadDto);
     }
 }

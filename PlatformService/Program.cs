@@ -1,8 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PlatformService.Data;
-using PlatformService.Datal;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Services
 builder.Services.AddControllers();
@@ -16,7 +15,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IPlatformRepository, PlatformRepository>();
 
 // Configuration
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {

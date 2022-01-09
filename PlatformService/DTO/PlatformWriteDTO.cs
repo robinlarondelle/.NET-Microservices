@@ -2,7 +2,7 @@
 
 namespace PlatformService.DTO;
 
-public class PlatformWriteDTO
+public class PlatformWriteDto
 {
     [Required]
     public string Name { get; set; }

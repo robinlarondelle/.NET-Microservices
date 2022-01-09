@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "K8S", "K8S", "{6C0E29AA-E98A-4FD6-93D1-5FF2F02A64AB}"
 	ProjectSection(SolutionItems) = preProject
 		K8S\platforms-depl.yaml = K8S\platforms-depl.yaml
+		K8S\platforms-np-srv.yaml = K8S\platforms-np-srv.yaml
 	EndProjectSection
 EndProject
 Global

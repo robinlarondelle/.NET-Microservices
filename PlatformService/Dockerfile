@@ -1,22 +1,23 @@
-#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+# The first step is to build the application in the docker image using the sdk
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-WORKDIR /src
-COPY ["PlatformService/PlatformService.csproj", "PlatformService/"]
-RUN dotnet restore "PlatformService/PlatformService.csproj"
-COPY . .
-WORKDIR "/src/PlatformService"
-RUN dotnet build "PlatformService.csproj" -c Release -o /app/build
+# Copy the .csproj file of the PlatformService to the /app working directory
+# this is used to build the dependencies of the project
+COPY *.csproj ./
+RUN dotnet restore
 
-FROM build AS publish
-RUN dotnet publish "PlatformService.csproj" -c Release -o /app/publish
+# with the dependencies installed, we can copy the source files to the workdir and build the project using 'publish'
+# the build files are placed in the '/app/out/' dir
+COPY . ./
+RUN dotnet publish -c Release -o out
 
-FROM base AS final
+# To make the image smaller, multistage building is used to create the runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
-COPY --from=publish /app/publish .
+
+# here we copy the output of the building environment, that is placed in the /app/out dir to the workingdir
+COPY --from=build-env /app/out .
+
+# The entrypoint specifies what the image will actually run, in this case it will be 'dotnet PlatformService.dll'
 ENTRYPOINT ["dotnet", "PlatformService.dll"]

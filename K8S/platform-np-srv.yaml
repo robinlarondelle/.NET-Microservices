@@ -1,13 +1,25 @@
-﻿apiVersion: v1
+﻿#
+# Platform Service NodePort
+#
+
+apiVersion: v1
 kind: Service
+
+# the name of this Service is specified in the metadata
 metadata:
-  name: platform-np-service-srv
+  name: platform-service-nodeport-service
+  
+# the specs describe how the service is structured. In this case, it's a NodePort type
 spec:
   type: NodePort
+  
+  # specify how to structure this service by name
   selector:
-    app: platform-service
+    app: platform-service # this name must match the matchName in the deployment.yaml
+    
+  # open up port 80 for TCP to the outside world
   ports:
     - name: platform-service
       protocol: TCP
-      port: 80
-      targetPort: 90
+      port: 80 # port exposed to the world
+      targetPort: 80 # port exposed in the containerized service

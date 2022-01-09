@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+
+# the name of this deployment is specified in the metadata
+metadata:
+  name: platform-depl
+
+# the specs describe how the pod deployment is structured
+spec:
+  replicas: 1 # spin up 1 pod with this specified template
+  
+  # the selector searches for the matching template with the same name
+  selector:
+    matchLabels: 
+      app: platform-service
+      
+  # the template describes what image and container we're going to use in this pod
+  template:
+    metadata:
+      labels:
+        app: platform-service
+      
+    # specify the container we're going to use
+    spec:
+      containers:
+        - name: platform-service
+          image: robinlarondelle/platform-service:latest

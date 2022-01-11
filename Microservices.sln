@@ -7,8 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlatformService", "Platform
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "K8S", "K8S", "{6C0E29AA-E98A-4FD6-93D1-5FF2F02A64AB}"
 	ProjectSection(SolutionItems) = preProject
-		K8S\platform-depl.yaml = K8S\platform-depl.yaml
 		K8S\platform-service-nodeport-service.yaml = K8S\platform-service-nodeport-service.yaml
+		K8S\command-service-depl.yaml = K8S\command-service-depl.yaml
+		K8S\platform-service-depl.yaml = K8S\platform-service-depl.yaml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandService", "CommandService\CommandService.csproj", "{3B8D48E5-740A-4B73-982C-04EC596BC4E3}"

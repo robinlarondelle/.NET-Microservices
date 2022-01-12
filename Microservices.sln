@@ -10,6 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "K8S", "K8S", "{6C0E29AA-E98
 		K8S\platform-service-nodeport-service.yaml = K8S\platform-service-nodeport-service.yaml
 		K8S\command-service-depl.yaml = K8S\command-service-depl.yaml
 		K8S\platform-service-depl.yaml = K8S\platform-service-depl.yaml
+		K8S\ingress-service.yaml = K8S\ingress-service.yaml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandService", "CommandService\CommandService.csproj", "{3B8D48E5-740A-4B73-982C-04EC596BC4E3}"

@@ -7,7 +7,7 @@ kind: Deployment
 
 # the name of this deployment is specified in the metadata
 metadata:
-  name: platform-depl
+  name: platform-service-depl
 
 # the specs describe how the pod deployment is structured
 spec:

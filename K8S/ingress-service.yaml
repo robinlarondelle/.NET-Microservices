@@ -10,7 +10,7 @@ metadata:
 
 spec:
   rules:
-    - host: microservices.com
+    - host: mt.com
       http:
         paths:
           - path: /api/platform
@@ -20,7 +20,7 @@ spec:
                 name: platform-service-cluster-ip
                 port:
                   number: 80
-          - path: /api/command-controller/platform
+          - path: /api/c/platform
             pathType: Prefix
             backend:
               service:

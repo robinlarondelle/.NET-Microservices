@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CommandService.Controllers;
 
-[Route("api/command-service/{platformId}/[controller]")]
+[Route("api/c/{platformId}/[controller]")]
 [ApiController]
 public class CommandController : ControllerBase
 {

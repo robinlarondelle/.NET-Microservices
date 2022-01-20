@@ -46,7 +46,7 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: mssql-service-cluster-ip
+    app: mssql
   ports:
     - port: 1433
       name: mssql

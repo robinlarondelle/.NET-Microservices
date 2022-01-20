@@ -1,5 +1,6 @@
+using CommandService.AsyncDataServices;
 using CommandService.Data;
-using CommandService.Dto;
+using CommandService.EventProcessing;
 using Microsoft.EntityFrameworkCore;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -15,6 +16,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // DI
 builder.Services.AddScoped<ICommandRepository, CommandRepository>();
+builder.Services.AddSingleton<IPlatformProcessor, PlatformProcessor>();
+builder.Services.AddSingleton<IEventProcessor, EventProcessor>();
+builder.Services.AddHostedService<MessageBusSubscriber>();
 
 WebApplication app = builder.Build();
 

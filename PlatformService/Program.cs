@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PlatformService.AsyncDataServices;
 using PlatformService.Data;
+using PlatformService.SyncDataServices.gRPC;
 using PlatformService.SyncDataServices.HTTP;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddGrpc();
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     if (env.IsProduction())
@@ -24,6 +26,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         options.UseInMemoryDatabase("InMem");
     }
 });
+// DI
+
 builder.Services.AddScoped<IPlatformRepository, PlatformRepository>();
 builder.Services.AddHttpClient<ICommandDataClient, HttpCommandDataClient>();
 builder.Services.AddSingleton<IMessageBusClient, MessageBusClient>();
@@ -40,9 +44,12 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+app.MapGrpcService<GrpcPlatformService>();
+app.MapGet("/protos/platforms.proto", async context =>
+{
+    await context.Response.WriteAsync(File.ReadAllText("Protos/platforms.proto"));
+});
 
 DemoDb.PrepPopulation(app, env.IsProduction());
 
-Console.WriteLine($"--> Command Service endpoint: {builder.Configuration["CommandService"]}");
-
-app.Run();
+app.Run(); 
